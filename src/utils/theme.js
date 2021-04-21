@@ -12,14 +12,20 @@ export const elevation = {
 
 export const lightTheme = {
   primary: "#fff",
+  secondary: "#e7e7e9",
   background: "#e9e9e9",
   fontColor: "#000",
+  aside: "#ffd8d8",
+  main: "#fff",
 };
 
 export const darkTheme = {
   primary: "#1f2737",
+  secondary: "#384556",
   background: "#1a202c",
   fontColor: "#fff",
+  aside: "#3e3b3b",
+  main: "#3a3b50",
 };
 
 export const themes = {
@@ -28,6 +34,6 @@ export const themes = {
 };
 
 export const fonts = {
-  body: "Roboto, Helvetica, Sans-Serif",
-  heading: "Playfair Display",
+  body: "Muli, Helvetica, Sans-Serif",
+  heading: "Muli",
 };

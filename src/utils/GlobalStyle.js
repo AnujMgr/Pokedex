@@ -115,8 +115,14 @@ html {
     -ms-text-size-adjust: 100%; /* 2 */
 }
 
+a {
+    outline: none;
+    text-decoration: none;
+    color: inherit;
+}
+
 a:focus {
-    outline: thin dotted;
+    outline: none;
 }
 
 a:active,

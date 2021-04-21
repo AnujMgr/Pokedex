@@ -5,11 +5,12 @@ export const StyleNavbar = styled.nav`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: ${(props) => props.theme.primary};
   padding: 1rem;
-  box-shadow: ${elevation.elevate_1};
   margin-bottom: 2rem;
-  span {
+  max-width: 1300px;
+  margin: auto;
+
+  a {
     font-size: 1.5rem;
     color: ${(props) => props.theme.fontColor};
   }
@@ -22,4 +23,12 @@ export const StyleToggleButton = styled.button`
   padding: 1rem;
   cursor: pointer;
   border-radius: 0.4rem;
+  background-color: ${(props) => props.theme.secondary};
+  box-shadow: ${elevation.elevate_1};
+  color: ${(props) => props.theme.fontColor};
+`;
+
+export const StyleWrapper = styled.div`
+  background-color: ${(props) => props.theme.primary};
+  box-shadow: ${elevation.elevate_1};
 `;

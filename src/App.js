@@ -17,8 +17,8 @@ function App() {
   return (
     <ThemeProvider theme={themes[theme]}>
       <GlobalStyle />
-      <Navbar theme={theme} themeToggler={themeToggler} />
       <Router>
+        <Navbar theme={theme} themeToggler={themeToggler} />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/pokemon/:id" component={SinglePage} />

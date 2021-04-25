@@ -7,10 +7,15 @@ export const StyleCard = styled.div`
   box-shadow: ${elevation.elevate_1};
   padding: 1rem 0.5rem;
   border-radius: 0.4rem;
+  :hover {
+    box-shadow: ${elevation.elevate_4};
+    transition: all 0.3s ease-in-out;
+  }
 `;
 
 export const StyleRelative = styled.div`
   position: relative;
+  height: 8em;
 `;
 
 export const StyleCircle = styled.div`
@@ -27,7 +32,7 @@ export const StyleImage = styled.img`
   left: 0;
   right: 0;
   margin: auto;
-  height: auto;
+  height: 8em;
   width: 8em;
   image-rendering: -webkit-optimize-contrast;
 `;
@@ -40,7 +45,7 @@ export const StyleDetails = styled.div`
     color: #fff;
     padding: 0.3em 0.5em;
     background-color: #27666693;
-    border-radius: 10rem;
+    border-radius: 10px;
   }
   h3,
   h2 {
@@ -49,5 +54,6 @@ export const StyleDetails = styled.div`
   h1 {
     font-size: 1.5rem;
     margin: 1rem 0;
+    text-transform: capitalize;
   }
 `;

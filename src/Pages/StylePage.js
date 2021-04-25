@@ -4,8 +4,7 @@ import { device } from "../utils/mediaQuery";
 export const StyleWrapper = styled.div`
   max-width: 1300px;
   margin: 0 auto;
-  padding: 0 4rem;
-
+  padding: 2em 4em;
   @media ${device.laptop} {
     padding: 0 1rem;
   }

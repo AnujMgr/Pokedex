@@ -21,7 +21,7 @@ function App() {
         <Navbar theme={theme} themeToggler={themeToggler} />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/pokemon/:id" component={SinglePage} />
+          <Route exact path="/pokemon/:pokemonId" component={SinglePage} />
           <Route>404 Not Found</Route>
         </Switch>
       </Router>

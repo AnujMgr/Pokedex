@@ -17,15 +17,17 @@ export const lightTheme = {
   fontColor: "#000",
   aside: "#ffd8d8",
   main: "#fff",
+  search: "#233454",
 };
 
 export const darkTheme = {
   primary: "#1f2737",
   secondary: "#384556",
   background: "#1a202c",
-  fontColor: "#fff",
+  fontColor: "#e2e2e2",
   aside: "#3e3b3b",
   main: "#3a3b50",
+  search: "#233454",
 };
 
 export const themes = {

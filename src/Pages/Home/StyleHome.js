@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyleWrapper = styled.div`
   max-width: 1300px;
   margin: 0 auto;
-  padding: 0 4rem;
+  padding: 2em 4em;
 `;
 
 export const StyleFlex = styled.div`
@@ -14,11 +14,11 @@ export const StyleFlex = styled.div`
 
 export const StyleSearchBarContainer = styled(StyleFlex)`
   justify-content: space-between;
-  margin-bottom: 2rem;
 `;
 
 export const StyleGridContainer = styled(StyleFlex)`
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(14em, 1fr));
-  grid-column-gap: 0.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(13em, 1fr));
+  grid-column-gap: 0.8rem;
+  grid-row-gap: 0.8rem;
 `;

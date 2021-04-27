@@ -5,6 +5,7 @@ export const StyleCheckBoxContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 1rem;
+  color: ${(props) => props.theme.fontColor};
 
   label {
     margin-left: 0.4em;

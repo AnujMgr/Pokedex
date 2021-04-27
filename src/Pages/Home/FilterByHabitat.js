@@ -41,7 +41,6 @@ function FilterByHabitat({ filter, noOfPokemon }) {
         const pokemonByHabitat = await axios.get(
           `${pokemonApi}${habitat.data.pokemon_species[i].name}`
         );
-        console.log(pokemonByHabitat.status());
         data.push(pokemonByHabitat.data);
       }
       setPokemonByHabitat(data);

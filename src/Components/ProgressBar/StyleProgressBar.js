@@ -7,6 +7,7 @@ export const StyleProgressBar = styled.div`
   > div {
     background-color: ${(props) => props.color};
     width: ${(props) => props.width}%;
+    max-width: 100%;
     height: 0.4em;
     border-radius: 0.5em;
   }

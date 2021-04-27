@@ -2,10 +2,9 @@ import styled from "styled-components";
 import { device } from "../../utils/mediaQuery";
 import { elevation } from "../../utils/theme";
 
-const borderRadius = "0.2rem";
+const borderRadius = "2rem";
 
 export const StyleSearchBarWrapper = styled.div`
-  position: relative;
   display: flex;
   align-items: center;
   border-radius: ${borderRadius};
@@ -27,40 +26,15 @@ export const StyleSearchBarWrapper = styled.div`
   }
 `;
 
-export const StyleSearchFilter = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 1rem;
-  background-color: ${(props) => props.theme.primary};
-  border-radius: ${borderRadius} 0 0 ${borderRadius};
-  cursor: pointer;
-`;
-
-export const StyleDropDown = styled.div`
-  position: absolute;
-  top: 3.5em;
-  left: 0;
-  z-index: 999;
-  background-color: ${(props) => props.theme.primary};
-  width: 9em;
-  box-shadow: ${elevation.elevate_3};
-  li {
-    padding: 0.8em 1em;
-    user-select: none;
-    :hover {
-      cursor: pointer;
-      background-color: ${(props) => props.theme.background};
-    }
-  }
-`;
-
 export const StyleSearchBar = styled.input`
   width: 100%;
-  padding: 1rem 0rem;
+  padding: 1rem 2rem;
   border: 0px;
   border-radius: 0 ${borderRadius} ${borderRadius} 0;
   background-color: ${(props) => props.theme.primary};
   font-size: 1rem;
+  border-radius: ${borderRadius};
+  color: ${(props) => props.theme.fontColor};
 
   @media ${device.mobileL} {
     max-width: 100%;
@@ -69,4 +43,5 @@ export const StyleSearchBar = styled.input`
 
 export const StyleSearchIcon = styled.svg`
   padding: 0 1rem;
+  margin-right: 1em;
 `;

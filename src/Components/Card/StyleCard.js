@@ -40,7 +40,7 @@ export const StyleImage = styled.img`
 export const StyleDetails = styled.div`
   margin: 1rem 0;
   text-align: center;
-  span {
+  > span {
     display: inline-block;
     color: #fff;
     padding: 0.3em 0.5em;
@@ -54,6 +54,12 @@ export const StyleDetails = styled.div`
   h1 {
     font-size: 1.5rem;
     margin: 1rem 0;
+    text-transform: capitalize;
+  }
+`;
+
+export const StyleText = styled.h6`
+  span {
     text-transform: capitalize;
   }
 `;

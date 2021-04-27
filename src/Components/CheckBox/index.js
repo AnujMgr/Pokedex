@@ -1,3 +1,3 @@
-import Checkbox from "./Checkbox";
+import RadioOption from "./RadioOption";
 
-export default Checkbox;
+export default RadioOption;

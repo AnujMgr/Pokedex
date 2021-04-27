@@ -115,6 +115,10 @@ export const StyleHeader = styled.div`
     display: inline-flex;
     align-items: center;
   }
+  h1 {
+    font-weight: bold;
+    text-transform: capitalize;
+  }
 `;
 
 export const StyleProfile = styled.div`
@@ -130,6 +134,7 @@ export const StyleProfile = styled.div`
       text-align: center;
       height: 1.3rem;
       font-weight: bold;
+      text-transform: capitalize;
     }
   }
   div:last-child {
@@ -143,6 +148,24 @@ export const StyleTopic = styled.h1`
   padding: 0.5rem 1.5rem;
   font-weight: 500;
   background-color: ${(props) => props.theme.aside};
+`;
+export const StyleAbility = styled.div`
+  text-align: center;
+  padding: 1em;
+  display: flex;
+  border-radius: 82px;
+  background: #ffc5c5;
+  align-items: center;
+  height: 4rem;
+  justify-content: center;
+  width: 4rem;
+  text-transform: capitalize;
+  background-color: ${(props) => props.theme.secondary};
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: left;
+  flex-wrap: wrap;
 `;
 
 export const StyleDescription = styled.p`

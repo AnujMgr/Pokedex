@@ -5,9 +5,11 @@ export const StyleCheckBoxContainer = styled.div`
   justify-content: center;
   align-items: center;
   padding: 1rem;
-  margin: auto;
-  margin-bottom: 1em;
-  span {
+
+  label {
     margin-left: 0.4em;
+    text-transform: capitalize;
+    user-select: none;
+    cursor: pointer;
   }
 `;

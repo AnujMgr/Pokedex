@@ -1,67 +1,91 @@
-import axios from "axios";
 import { useEffect, memo, useState, useRef } from "react";
 import { useDispatch } from "react-redux";
 import SearchBar from "../../Components/SearchBar/SearchBar";
-import { StyleWrapper } from "../StylePage";
-import { StyleGridContainer, StyleSearchBarContainer } from "./StyleHome";
+import {
+  StyleFlex,
+  StyleGrid,
+  StyleGridContainer,
+  StyleSearchBarContainer,
+  StyleWrapper,
+} from "./StyleHome";
 import { setPokemon } from "../../Redux/actions/pokemon-action";
 import PokemonLists from "./PokemonLists";
-// import data from "../../data.json";
 import Loading from "../../Components/Loading";
-import Checkbox from "../../Components/CheckBox";
+import DropDown from "../../Components/Dropdown/";
+import axios from "axios";
+import RadioOption from "../../Components/CheckBox";
 
 function Home() {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
   const inputRef = useRef();
-  const [filter, setFilter] = useState("name");
+  const [filter, setFilter] = useState("search");
   const [query, setQuery] = useState("");
-  const limit = 100;
-  const offset = 0;
+  const [region, setRegion] = useState("region");
+  const [habitat, setHabitat] = useState("");
+  const [checkOption, setCheckOption] = useState("search");
+  const [radioOption, setRadioOption] = useState("");
+  const pokemonApi = "https://pokeapi.co/api/v2/pokemon/";
+  const pokemonSpeciesApi = "https://pokeapi.co/api/v2/pokemon-species/";
+  const regionApi = "https://pokeapi.co/api/v2/region";
+  const habitatApi = "https://pokeapi.co/api/v2/pokemon-habitat/";
 
-  const pokemonApi = `https://pokeapi.co/api/v2/pokemon?offset=${0}&limit=${limit}`;
-  const locationApi = `https://pokeapi.co/api/v2/region/?offset=${0}&limit=796`;
-  const regionApi = `https://pokeapi.co/api/v2/region`;
+  const gender = [{ name: "male" }, { name: "female" }, { name: "genderless" }];
+  const noOfPokemon = 50;
 
   const fetchData = async () => {
     const data = [];
-
-    for (let i = 1; i < 5; i++) {
-      const response = await axios
-        .get(`https://pokeapi.co/api/v2/pokemon/${i}`)
-        .catch((err) => {
-          console.log(err);
-        });
-      data.push(response.data);
+    for (let i = 1; i < noOfPokemon; i++) {
+      const getPokemons = await axios.get(`${pokemonApi}${i}`);
+      const getPokemonsSpecies = await axios.get(`${pokemonSpeciesApi}${i}`);
+      axios.all([getPokemons, getPokemonsSpecies]).then(
+        axios.spread((...allData) => {
+          data.push({ ...allData[0].data, ...allData[1].data });
+        })
+      );
     }
+
+    const region = await axios.get(regionApi).catch((err) => {
+      console.log("Error = " + err);
+    });
+
+    const habitat = await axios.get(habitatApi).catch((err) => {
+      console.log("Error = " + err);
+    });
+
+    setRegion(region.data.results);
+    setHabitat(habitat.data.results);
+
     dispatch(setPokemon(data));
     setLoading(false);
-
-    // const pokemonsData = await axios
-    //   .get(pokemonApi)
-    //   .then((res) => {
-    //     const responseData = res.data.results.map((pokemon, index) => {
-    //       return { ...pokemon, id: index + 1 };
-    //     });
-    //     return responseData;
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-
-    // dispatch(setPokemon(pokemonsData));
   };
-
-  // const fetchPokemons = () => {
-  //   // const response = data;
-  //   console.log(data);
-  //   dispatch(setPokemon(data.results));
-  //   setLoading(false);
-  // };
 
   useEffect(() => {
     fetchData();
   }, []);
+
+  const handleClikOnSearch = () => {
+    setFilter("search");
+  };
+  const setRadioValue = (value) => {
+    setRadioOption(value);
+  };
+
+  useEffect(() => {
+    setLoading("me");
+    if (filter === "region") {
+      setCheckOption({ group: "region", data: region });
+      setLoading(false);
+    } else if (filter === "gender") {
+      setCheckOption({ group: "gender", data: gender });
+      setLoading(false);
+    } else if (filter === "habitat") {
+      setCheckOption({ group: "habitat", data: habitat });
+      setLoading(false);
+    } else if (filter === "search") {
+      setLoading(false);
+    }
+  }, [filter]);
 
   return loading ? (
     <Loading />
@@ -74,11 +98,49 @@ function Home() {
           filter={filter}
           setFilter={setFilter}
           setQuery={setQuery}
+          onClick={handleClikOnSearch}
         />
       </StyleSearchBarContainer>
-      <Checkbox />
+
+      <StyleGrid>
+        {filter === "search" ? (
+          <div></div>
+        ) : (
+          <StyleFlex>
+            {typeof checkOption.data === "object" ||
+            typeof checkOption.data === "array" ? (
+              (console.log("Hellow"),
+              checkOption.data.map((option, index) => {
+                console.log(checkOption.group);
+                return (
+                  <RadioOption
+                    key={option.name}
+                    name={option.name}
+                    group={checkOption.group}
+                    index={index}
+                  />
+                );
+              }))
+            ) : (
+              <div></div>
+            )}
+          </StyleFlex>
+        )}
+
+        <DropDown filter={filter} setFilter={setFilter} />
+      </StyleGrid>
+      <br />
+
       <StyleGridContainer>
-        <PokemonLists query={query} filter={filter} />
+        <PokemonLists
+          query={query}
+          filter={filter}
+          option={radioOption}
+          gender={gender}
+          habitat={habitat}
+          noOfPokemon={noOfPokemon}
+          setRadioValue={setRadioValue}
+        />
       </StyleGridContainer>
     </StyleWrapper>
   );

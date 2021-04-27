@@ -7,11 +7,10 @@ import {
   StyleDetails,
 } from "./StyleCard";
 
-const Card = ({ name, id, types, img, color, png }) => {
+const Card = ({ name, id, img, color, png }) => {
   const addDefaultSrc = (ev) => {
     ev.target.src = png;
   };
-  console.log(types);
   return (
     <StyleCard color={color}>
       <StyleRelative>
@@ -21,14 +20,9 @@ const Card = ({ name, id, types, img, color, png }) => {
       <StyleDetails>
         <span>#{id}</span>
         <h1>{name}</h1>
-        {/* <h6>
-          Type:
-          {types.map((type) => {
-            {
-              return <span>{type.type.name}</span>;
-            }
-          })}
-        </h6> */}
+        {/* <StyleText>
+          Species: <span>{species.name}</span>
+        </StyleText> */}
       </StyleDetails>
     </StyleCard>
   );

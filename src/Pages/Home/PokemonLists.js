@@ -1,37 +1,32 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import Card from "../../Components/Card/Card";
+import FilterByGender from "./FilterByGender";
+import FilterByHabitat from "./FilterByHabitat";
+import FilterBySearch from "./FilterBySearch";
 
-function PokemonLists({ query }) {
-  const pokemons = useSelector((state) => state.allPokemon.pokemons);
-
-  const filterData = pokemons.filter((pokemon) => {
-    return pokemon.name.toLowerCase().includes(query.toLowerCase());
-  });
-
-  console.log(pokemons);
-
-  return (
-    <React.Fragment>
-      {filterData.map((pokemon, index) => {
-        if (index !== null) {
-          return (
-            <Link to={/pokemon/ + pokemon.id} key={pokemon.name}>
-              <Card
-                id={pokemon.id}
-                name={pokemon.name}
-                color={"#3e3b3b"}
-                types={pokemon.types}
-                img={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${pokemon.id}.svg`}
-                png={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemon.id}.png`}
-              />
-            </Link>
-          );
-        } else return React.Fragment;
-      })}
-    </React.Fragment>
-  );
+function PokemonLists({ query, filter, option, setRadioValue, noOfPokemon }) {
+  console.log(option);
+  if (filter === "search") {
+    return <FilterBySearch query={query} noOfPokemon={noOfPokemon} />;
+  } else if (filter === "region") {
+    return <h1>Filter By Search</h1>;
+  } else if (filter === "gender") {
+    return (
+      <FilterByGender
+        genderOption={option}
+        filter={filter}
+        noOfPokemon={noOfPokemon}
+      />
+    );
+  } else if (filter === "habitat") {
+    return (
+      <FilterByHabitat
+        habitatOption={option}
+        filter={filter}
+        setRadioValue={setRadioValue}
+        noOfPokemon={noOfPokemon}
+      />
+    );
+  }
 }
 
 export default PokemonLists;

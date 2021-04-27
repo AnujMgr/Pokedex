@@ -13,6 +13,15 @@ export const pokemonReducer = (state = initialState, { type, payload }) => {
   }
 };
 
+export const selectedOptionReducer = (state = {}, { type, payload }) => {
+  switch (type) {
+    case ActionTypes.SELECTED_OPTION:
+      return { option: payload };
+    default:
+      return state;
+  }
+};
+
 export const selectedPokemonReducer = (state = {}, { type, payload }) => {
   switch (type) {
     case ActionTypes.SELECTED_POKEMON:

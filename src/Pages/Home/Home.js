@@ -124,17 +124,15 @@ function Home() {
       </StyleGrid>
       <br />
 
-      <StyleGridContainer>
-        <PokemonLists
-          query={query}
-          filter={filter}
-          option={radioOption}
-          gender={gender}
-          habitat={habitat}
-          noOfPokemon={noOfPokemon}
-          setRadioValue={setRadioValue}
-        />
-      </StyleGridContainer>
+      <PokemonLists
+        query={query}
+        filter={filter}
+        option={radioOption}
+        gender={gender}
+        habitat={habitat}
+        noOfPokemon={noOfPokemon}
+        setRadioValue={setRadioValue}
+      />
     </StyleWrapper>
   );
 }

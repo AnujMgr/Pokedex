@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Card from "../../Components/Card/Card";
 import Loading from "../../Components/Loading";
+import { StyleGridContainer } from "./StyleHome";
 
 function FilterBySearch({ query }) {
   const pokemons = useSelector((state) => state.allPokemon.pokemons);
@@ -19,7 +20,7 @@ function FilterBySearch({ query }) {
   }, [pokemons]);
 
   return !loading ? (
-    <>
+    <StyleGridContainer>
       {filterData.map((pokemon, index) => {
         if (index !== null) {
           const { name, url } = pokemon;
@@ -39,7 +40,7 @@ function FilterBySearch({ query }) {
           );
         } else return React.Fragment;
       })}
-    </>
+    </StyleGridContainer>
   ) : (
     <Loading />
   );

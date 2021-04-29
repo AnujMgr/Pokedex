@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const StyleLoading = styled.div`
   display: flex;
   justify-content: center;
-  height: 100vh;
+  height: 65vh;
   align-items: center;
   div {
     border: 0.3rem solid #f3f3f3;

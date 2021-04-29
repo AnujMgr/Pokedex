@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Card from "../../Components/Card/Card";
 import Loading from "../../Components/Loading";
+import { StyleGridContainer } from "./StyleHome";
 
 function FilterByGender({ filter }) {
   const [pokemonByGender, setPokemonByGender] = useState();
@@ -37,7 +38,7 @@ function FilterByGender({ filter }) {
   return loading ? (
     <Loading />
   ) : (
-    <>
+    <StyleGridContainer>
       {pokemonByGender.map((pokemon, index) => {
         if (index !== null) {
           const { pokemon_species } = pokemon;
@@ -62,7 +63,7 @@ function FilterByGender({ filter }) {
         } else return React.Fragment;
       })}{" "}
       ;
-    </>
+    </StyleGridContainer>
   );
 }
 

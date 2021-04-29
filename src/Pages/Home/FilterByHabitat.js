@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import Card from "../../Components/Card/Card";
 import Loading from "../../Components/Loading";
+import { StyleGridContainer } from "./StyleHome";
 
 function FilterByHabitat({ filter }) {
   const [loading, setLoading] = useState(true);
@@ -36,32 +37,30 @@ function FilterByHabitat({ filter }) {
   }, [option]);
 
   return !loading ? (
-    <>
-      <React.Fragment>
-        {pokemonByHabitat.map((pokemon, index) => {
-          if (index !== null) {
-            const { name, url } = pokemon;
+    <StyleGridContainer>
+      {pokemonByHabitat.map((pokemon, index) => {
+        if (index !== null) {
+          const { name, url } = pokemon;
 
-            const stripedUrl = url.substr(42, 4);
-            var id = stripedUrl.match(/\d/g);
-            console.log(id);
-            id = id.join("");
+          const stripedUrl = url.substr(42, 4);
+          var id = stripedUrl.match(/\d/g);
+          console.log(id);
+          id = id.join("");
 
-            return (
-              <Link to={/pokemon/ + pokemon.id} key={pokemon.name}>
-                <Card
-                  id={id}
-                  name={name}
-                  color={"#3e3b3b"}
-                  img={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`}
-                  png={`"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png"`}
-                />
-              </Link>
-            );
-          } else return React.Fragment;
-        })}
-      </React.Fragment>
-    </>
+          return (
+            <Link to={/pokemon/ + pokemon.id} key={pokemon.name}>
+              <Card
+                id={id}
+                name={name}
+                color={"#3e3b3b"}
+                img={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`}
+                png={`"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png"`}
+              />
+            </Link>
+          );
+        } else return React.Fragment;
+      })}
+    </StyleGridContainer>
   ) : (
     <Loading />
   );

@@ -7,13 +7,13 @@ import Loading from "../../Components/Loading";
 function FilterBySearch({ query }) {
   const pokemons = useSelector((state) => state.allPokemon.pokemons);
   const [loading, setLoading] = useState(true);
+
   const filterData = pokemons.filter((pokemon) => {
     return pokemon.name.toLowerCase().includes(query.toLowerCase());
   });
+
   useEffect(() => {
     if (JSON.stringify(pokemons) !== "[]") {
-      console.log("loading complete");
-
       setLoading(false);
     }
   }, [pokemons]);
@@ -22,15 +22,18 @@ function FilterBySearch({ query }) {
     <>
       {filterData.map((pokemon, index) => {
         if (index !== null) {
-          const { id, name, sprites } = pokemon;
+          const { name, url } = pokemon;
+          const stripedUrl = url.substr(34, 4);
+          var id = stripedUrl.match(/\d/g);
+          id = id.join("");
           return (
-            <Link to={/pokemon/ + pokemon.id} key={pokemon.name}>
+            <Link to={/pokemon/ + id} key={pokemon.name}>
               <Card
                 id={id}
                 name={name}
                 color={"#3e3b3b"}
-                img={sprites.other.dream_world.front_default}
-                png={`"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png"`}
+                img={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`}
+                png={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`}
               />
             </Link>
           );

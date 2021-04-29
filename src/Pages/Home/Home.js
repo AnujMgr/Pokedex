@@ -20,13 +20,13 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const inputRef = useRef();
   const [filter, setFilter] = useState("search");
+  const [fetched, setFetched] = useState(false);
   const [query, setQuery] = useState("");
   const [region, setRegion] = useState("region");
   const [habitat, setHabitat] = useState("");
   const [checkOption, setCheckOption] = useState("search");
   const [radioOption, setRadioOption] = useState("");
-  const pokemonApi = "https://pokeapi.co/api/v2/pokemon/";
-  const pokemonSpeciesApi = "https://pokeapi.co/api/v2/pokemon-species/";
+  const pokemonApi = "https://pokeapi.co/api/v2/pokemon/?limit=700&offset=0";
   const regionApi = "https://pokeapi.co/api/v2/region";
   const habitatApi = "https://pokeapi.co/api/v2/pokemon-habitat/";
 
@@ -34,16 +34,7 @@ function Home() {
   const noOfPokemon = 50;
 
   const fetchData = async () => {
-    const data = [];
-    for (let i = 1; i < noOfPokemon; i++) {
-      const getPokemons = await axios.get(`${pokemonApi}${i}`);
-      const getPokemonsSpecies = await axios.get(`${pokemonSpeciesApi}${i}`);
-      axios.all([getPokemons, getPokemonsSpecies]).then(
-        axios.spread((...allData) => {
-          data.push({ ...allData[0].data, ...allData[1].data });
-        })
-      );
-    }
+    const getPokemons = await axios.get(`${pokemonApi}`);
 
     const region = await axios.get(regionApi).catch((err) => {
       console.log("Error = " + err);
@@ -56,12 +47,15 @@ function Home() {
     setRegion(region.data.results);
     setHabitat(habitat.data.results);
 
-    dispatch(setPokemon(data));
+    dispatch(setPokemon(getPokemons.data.results));
     setLoading(false);
   };
 
   useEffect(() => {
-    fetchData();
+    if (!fetched) {
+      fetchData();
+      setFetched(true);
+    }
   }, []);
 
   const handleClikOnSearch = () => {
@@ -72,7 +66,7 @@ function Home() {
   };
 
   useEffect(() => {
-    setLoading("me");
+    // setLoading("me");
     if (filter === "region") {
       setCheckOption({ group: "region", data: region });
       setLoading(false);
@@ -109,7 +103,6 @@ function Home() {
           <StyleFlex>
             {typeof checkOption.data === "object" ||
             typeof checkOption.data === "array" ? (
-              (console.log("Hellow"),
               checkOption.data.map((option, index) => {
                 console.log(checkOption.group);
                 return (
@@ -120,7 +113,7 @@ function Home() {
                     index={index}
                   />
                 );
-              }))
+              })
             ) : (
               <div></div>
             )}

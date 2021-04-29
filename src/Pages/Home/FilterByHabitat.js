@@ -5,9 +5,8 @@ import { Link } from "react-router-dom";
 import Card from "../../Components/Card/Card";
 import Loading from "../../Components/Loading";
 
-function FilterByHabitat({ filter, noOfPokemon }) {
+function FilterByHabitat({ filter }) {
   const [loading, setLoading] = useState(true);
-  const pokemonApi = "https://pokeapi.co/api/v2/pokemon/";
   const habitatApi = "https://pokeapi.co/api/v2/pokemon-habitat/";
   const [pokemonByHabitat, setPokemonByHabitat] = useState();
 
@@ -16,40 +15,20 @@ function FilterByHabitat({ filter, noOfPokemon }) {
 
   const fetchFetchPokemonByHabitat = async (value, group) => {
     if (filter === group && value !== undefined) {
-      const data = [];
       const habitat = await axios
         .get(`${habitatApi}${value.name}`)
         .catch((err) => {
           console.log("Error = " + err);
         });
-      for (let i = 1; i < habitat.data.pokemon_species.length; i++) {
-        const pokemonByHabitat = await axios.get(
-          `${pokemonApi}${habitat.data.pokemon_species[i].name}`
-        );
-        if (pokemonByHabitat === undefined) continue;
+      const pokemonHabitatData = habitat.data.pokemon_species;
+      console.log(pokemonHabitatData);
 
-        data.push(pokemonByHabitat.data);
-      }
-      setPokemonByHabitat(data);
-      setLoading(false);
-    } else {
-      const data = [];
-      const habitat = await axios.get(`${habitatApi}${1}`).catch((err) => {
-        console.log("Error = " + err);
-      });
-      for (let i = 1; i < habitat.data.pokemon_species.length; i++) {
-        const pokemonByHabitat = await axios.get(
-          `${pokemonApi}${habitat.data.pokemon_species[i].name}`
-        );
-        data.push(pokemonByHabitat.data);
-      }
-      setPokemonByHabitat(data);
+      setPokemonByHabitat(pokemonHabitatData);
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    // console.log(option.option.group);
     if (JSON.stringify(option) !== "{}") {
       setLoading(true);
       fetchFetchPokemonByHabitat(option.option, option.option.group);
@@ -61,14 +40,20 @@ function FilterByHabitat({ filter, noOfPokemon }) {
       <React.Fragment>
         {pokemonByHabitat.map((pokemon, index) => {
           if (index !== null) {
-            const { id, name, sprites } = pokemon;
+            const { name, url } = pokemon;
+
+            const stripedUrl = url.substr(42, 4);
+            var id = stripedUrl.match(/\d/g);
+            console.log(id);
+            id = id.join("");
+
             return (
               <Link to={/pokemon/ + pokemon.id} key={pokemon.name}>
                 <Card
                   id={id}
                   name={name}
                   color={"#3e3b3b"}
-                  img={sprites.other.dream_world.front_default}
+                  img={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`}
                   png={`"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png"`}
                 />
               </Link>

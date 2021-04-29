@@ -5,52 +5,24 @@ import { Link } from "react-router-dom";
 import Card from "../../Components/Card/Card";
 import Loading from "../../Components/Loading";
 
-function FilterByGender({ filter, noOfPokemon }) {
+function FilterByGender({ filter }) {
   const [pokemonByGender, setPokemonByGender] = useState();
   const [loading, setLoading] = useState(true);
   const genderApi = "https://pokeapi.co/api/v2/gender/";
-  const pokemonApi = "https://pokeapi.co/api/v2/pokemon/";
   const option = useSelector((state) => state.option);
   console.log(option);
 
   const fetchFetchPokemonByGender = async (value, group) => {
     if (filter === group && value !== undefined) {
-      console.log(value.name);
-      const data = [];
       const gender = await axios
         .get(`${genderApi}${value.name}`)
         .catch((err) => {
           console.log("Error = " + err);
         });
-      for (let i = 1; i < noOfPokemon; i++) {
-        const pokemonByGender = await axios
-          .get(
-            `${pokemonApi}${gender.data.pokemon_species_details[i].pokemon_species.name}`
-          )
-          .catch((err) => {
-            console.log("Error = " + err);
-          });
+      const pokemonGenderData = gender.data.pokemon_species_details;
+      console.log(pokemonGenderData);
 
-        if (pokemonByGender === undefined) continue;
-
-        console.log(pokemonByGender.status);
-        data.push(pokemonByGender.data);
-      }
-      setPokemonByGender(data);
-      setLoading(false);
-    } else {
-      const data = [];
-      const gender = await axios.get(`${genderApi}${1}`).catch((err) => {
-        console.log("Error = " + err);
-      });
-      for (let i = 1; i < noOfPokemon; i++) {
-        const pokemonByGender = await axios.get(
-          `${pokemonApi}${gender.data.pokemon_species_details[i].pokemon_species.name}`
-        );
-
-        data.push(pokemonByGender.data);
-      }
-      setPokemonByGender(data);
+      setPokemonByGender(pokemonGenderData);
       setLoading(false);
     }
   };
@@ -68,14 +40,21 @@ function FilterByGender({ filter, noOfPokemon }) {
     <>
       {pokemonByGender.map((pokemon, index) => {
         if (index !== null) {
-          const { id, name, sprites } = pokemon;
+          const { pokemon_species } = pokemon;
+          const { name, url } = pokemon_species;
+
+          const stripedUrl = url.substr(42, 4);
+          var id = stripedUrl.match(/\d/g);
+          console.log(id);
+          id = id.join("");
           return (
             <Link to={/pokemon/ + pokemon.id} key={pokemon.name}>
               <Card
                 id={id}
                 name={name}
                 color={"#3e3b3b"}
-                img={sprites.other.dream_world.front_default}
+                // img={sprites.other.dream_world.front_default}
+                img={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${id}.svg`}
                 png={`"https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png"`}
               />
             </Link>

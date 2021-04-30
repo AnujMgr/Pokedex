@@ -4,7 +4,6 @@ import FilterByHabitat from "./FilterByHabitat";
 import FilterBySearch from "./FilterBySearch";
 
 function PokemonLists({ query, filter, option, setRadioValue, noOfPokemon }) {
-  console.log(option);
   if (filter === "search") {
     return <FilterBySearch query={query} noOfPokemon={noOfPokemon} />;
   } else if (filter === "region") {

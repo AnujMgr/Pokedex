@@ -12,7 +12,6 @@ function FilterByHabitat({ filter }) {
   const [pokemonByHabitat, setPokemonByHabitat] = useState();
 
   const option = useSelector((state) => state.option);
-  console.log(option);
 
   const fetchFetchPokemonByHabitat = async (value, group) => {
     if (filter === group && value !== undefined) {
@@ -22,7 +21,6 @@ function FilterByHabitat({ filter }) {
           console.log("Error = " + err);
         });
       const pokemonHabitatData = habitat.data.pokemon_species;
-      console.log(pokemonHabitatData);
 
       setPokemonByHabitat(pokemonHabitatData);
       setLoading(false);
@@ -44,11 +42,12 @@ function FilterByHabitat({ filter }) {
 
           const stripedUrl = url.substr(42, 4);
           var id = stripedUrl.match(/\d/g);
-          console.log(id);
           id = id.join("");
 
+          console.log(id);
+
           return (
-            <Link to={/pokemon/ + pokemon.id} key={pokemon.name}>
+            <Link to={/pokemon/ + id} key={pokemon.name}>
               <Card
                 id={id}
                 name={name}

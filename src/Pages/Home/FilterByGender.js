@@ -11,7 +11,6 @@ function FilterByGender({ filter }) {
   const [loading, setLoading] = useState(true);
   const genderApi = "https://pokeapi.co/api/v2/gender/";
   const option = useSelector((state) => state.option);
-  console.log(option);
 
   const fetchFetchPokemonByGender = async (value, group) => {
     if (filter === group && value !== undefined) {
@@ -21,7 +20,6 @@ function FilterByGender({ filter }) {
           console.log("Error = " + err);
         });
       const pokemonGenderData = gender.data.pokemon_species_details;
-      console.log(pokemonGenderData);
 
       setPokemonByGender(pokemonGenderData);
       setLoading(false);
@@ -35,9 +33,7 @@ function FilterByGender({ filter }) {
     }
   }, [option]);
 
-  return loading ? (
-    <Loading />
-  ) : (
+  return !loading ? (
     <StyleGridContainer>
       {pokemonByGender.map((pokemon, index) => {
         if (index !== null) {
@@ -46,10 +42,9 @@ function FilterByGender({ filter }) {
 
           const stripedUrl = url.substr(42, 4);
           var id = stripedUrl.match(/\d/g);
-          console.log(id);
           id = id.join("");
           return (
-            <Link to={/pokemon/ + pokemon.id} key={pokemon.name}>
+            <Link to={/pokemon/ + id} key={pokemon.name}>
               <Card
                 id={id}
                 name={name}
@@ -61,9 +56,11 @@ function FilterByGender({ filter }) {
             </Link>
           );
         } else return React.Fragment;
-      })}{" "}
+      })}
       ;
     </StyleGridContainer>
+  ) : (
+    <Loading />
   );
 }
 

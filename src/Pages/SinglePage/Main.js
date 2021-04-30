@@ -44,15 +44,12 @@ function Main() {
       console.log(err);
     });
 
-    console.log(getPokemons.data.chain);
-
     await evolutionChain(getPokemons.data.chain);
 
     setLoading(false);
 
     setEvolutionData([...data]);
   };
-  console.log(pokemon);
 
   useEffect(() => {
     fetchData();

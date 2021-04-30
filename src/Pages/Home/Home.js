@@ -4,7 +4,6 @@ import SearchBar from "../../Components/SearchBar/SearchBar";
 import {
   StyleFlex,
   StyleGrid,
-  StyleGridContainer,
   StyleSearchBarContainer,
   StyleWrapper,
 } from "./StyleHome";
@@ -104,7 +103,6 @@ function Home() {
             {typeof checkOption.data === "object" ||
             typeof checkOption.data === "array" ? (
               checkOption.data.map((option, index) => {
-                console.log(checkOption.group);
                 return (
                   <RadioOption
                     key={option.name}
